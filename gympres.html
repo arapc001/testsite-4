@@ -1,30 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Embedded Google Slides</title>
+  <title>Google Slides Fullscreen</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f5f5f5;
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Prevent scrollbars */
+      background-color: #000; /* Optional: black background behind slides */
     }
+
     iframe {
-      width: 80%;
-      height: 80%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       border: none;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
   </style>
+
+  <script>
+    // Optional: auto-refresh every 5 minutes (adjust if you want)
+    const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
+    setInterval(() => location.reload(), REFRESH_INTERVAL);
+
+    // Attempt fullscreen automatically on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      const iframe = document.querySelector("iframe");
+      const requestFullscreen =
+        iframe.requestFullscreen ||
+        iframe.webkitRequestFullscreen ||
+        iframe.mozRequestFullScreen ||
+        iframe.msRequestFullscreen;
+
+      // Some browsers only allow fullscreen after user interaction
+      if (requestFullscreen) {
+        try {
+          requestFullscreen.call(iframe);
+        } catch (err) {
+          console.warn("Fullscreen request may need user interaction:", err);
+        }
+      }
+    });
+  </script>
 </head>
 <body>
-  <!-- Replace the src URL below with your own Google Slides embed link -->
-  <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRWI67yAKI-vINsebeAlQUz1GH_9lQvVVKxm5MoFlHsoxiN1PJqSqZa5B_BiEjbCaJVbTHE47z9kvLA/pubembed?start=true&loop=true&delayms=3000" frameborder="0" width="1440" height="839" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+  <!-- Replace src below with your Google Slides embed link -->
+  <iframe 
+    src="https://docs.google.com/presentation/d/e/2PACX-1vRWI67yAKI-vINsebeAlQUz1GH_9lQvVVKxm5MoFlHsoxiN1PJqSqZa5B_BiEjbCaJVbTHE47z9kvLA/pubembed?start=true&loop=true&delayms=3000"
+    allowfullscreen
+    mozallowfullscreen
+    webkitallowfullscreen>
+  </iframe>
 </body>
 </html>
