@@ -3,59 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Slides Fullscreen</title>
+  <title>Google Slides Fullscreen Hover Menu</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden; /* Prevent scrollbars */
-      background-color: #000; /* Optional: black background behind slides */
+      overflow: hidden;
+      background-color: #000;
     }
 
-    iframe {
+    .slide-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
+      display: block;
+    }
+
+    /* Overlay to hide the Google Slides controls */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Allow clicks to pass through */
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 20%);
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .slide-container:hover .overlay {
+      opacity: 0; /* Reveal menu on hover */
     }
   </style>
-
-  <script>
-    // Optional: auto-refresh every 5 minutes (adjust if you want)
-    const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
-    setInterval(() => location.reload(), REFRESH_INTERVAL);
-
-    // Attempt fullscreen automatically on page load
-    document.addEventListener("DOMContentLoaded", () => {
-      const iframe = document.querySelector("iframe");
-      const requestFullscreen =
-        iframe.requestFullscreen ||
-        iframe.webkitRequestFullscreen ||
-        iframe.mozRequestFullScreen ||
-        iframe.msRequestFullscreen;
-
-      // Some browsers only allow fullscreen after user interaction
-      if (requestFullscreen) {
-        try {
-          requestFullscreen.call(iframe);
-        } catch (err) {
-          console.warn("Fullscreen request may need user interaction:", err);
-        }
-      }
-    });
-  </script>
 </head>
 <body>
-  <!-- Replace src below with your Google Slides embed link -->
-  <iframe 
-    src="https://docs.google.com/presentation/d/e/2PACX-1vRWI67yAKI-vINsebeAlQUz1GH_9lQvVVKxm5MoFlHsoxiN1PJqSqZa5B_BiEjbCaJVbTHE47z9kvLA/pubembed?start=true&loop=true&delayms=3000"
-    allowfullscreen
-    mozallowfullscreen
-    webkitallowfullscreen>
-  </iframe>
+  <div class="slide-container">
+    <iframe 
+      src="https://docs.google.com/presentation/d/e/2PACX-1vRWI67yAKI-vINsebeAlQUz1GH_9lQvVVKxm5MoFlHsoxiN1PJqSqZa5B_BiEjbCaJVbTHE47z9kvLA/pubembed?start=true&loop=true&delayms=3000"
+      allowfullscreen
+      mozallowfullscreen
+      webkitallowfullscreen>
+    </iframe>
+    <div class="overlay"></div>
+  </div>
+
+  <script>
+    // Optional: Auto-refresh every 5 minutes
+    const REFRESH_INTERVAL = 5 * 60 * 1000;
+    setInterval(() => location.reload(), REFRESH_INTERVAL);
+  </script>
 </body>
 </html>
