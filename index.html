@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    <!-- The following meta tag will redirect after 3 seconds -->
-    <meta http-equiv="refresh" content="0; url=https://docs.google.com/presentation/d/e/2PACX-1vRWI67yAKI-vINsebeAlQUz1GH_9lQvVVKxm5MoFlHsoxiN1PJqSqZa5B_BiEjbCaJVbTHE47z9kvLA/present?start=true&loop=true&delayms=3000">
+    <meta http-equiv="refresh" content="0; url=https://docs.google.com/presentation/d/e/2PACX-1vRWI67yAKI-vINsebeAlQUz1GH_9lQvVVKxm5MoFlHsoxiN1PJqSqZa5B_BiEjbCaJVbTHE47z9kvLA/present?start=true&auto=1">
+ <!-- JavaScript to reload the page after a specific time to simulate looping -->
+    <script type="text/javascript">
+        setTimeout(function() {
+            // Redirect to the Google Slides presentation with autoplay enabled
+            window.location.href = 'https://docs.google.com/presentation/d/your_presentation_id_here/present?usp=sharing&start=true&auto=1';
+        }, 3000); // 3-second delay before redirect
+        
+        // Looping trick: Reload the page every 60 seconds to simulate a loop (adjust as needed)
+        setInterval(function() {
+            window.location.reload();
+        }, 60000); // 60 seconds (adjust for your loop frequency)
+    </script>
 </head>
 <body>
 </body>
